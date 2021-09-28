@@ -4,17 +4,32 @@ import java.util.*;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
+/**
+* <h1>Topology-API<h1>
+* This API provides the functionality to 
+*  <ul>
+*  <li>Read a topology from a given JSON file and store it in the memory: {@code read [filename]}</li>
+*  <li>Write a given topology from the memory to a JSON file: {@code write [topologyID]}</li>
+*  <li>Query about which topologies are currently in the memory: {@code getTopologies}</li>
+*  <li>Delete a given topology from memory: {@code delete [topologyID]}</li>
+*  <li>Query about which devices are in a given topology: {@code getDevices [topologyID]}</li>
+*  <li>Query about which devices are connected to a given netlist node in a given topology: {@code getDevicesWithNetlistNode [topologyID] [netlistNodeID]}</li>
+*  </ul>  
+* @author  Ahmed Elbadawy
+* @version 1.0
+* @since   2021-9-27
+*/
+
 public class Topology {
-    // static String name_id;
-    // static String func;
+
     static HashMap<String,JSONObject> topologies = new HashMap<String, JSONObject>();
 
-    // public Topology(String name,String f) {
-    //     name_id = name;
-    //     func = f;
-    // }
+     /**
+   * This method is used to ead a topology from a given JSON file and store it in the @param topologies.
+   * @param filename This is the path of the json file
+   */
+  public void readTop(String fileName) {
 
-    static void readTop(String fileName) {
         JSONParser parser = new JSONParser();
         try { 
             Object obj = parser.parse(new FileReader(fileName));
@@ -29,8 +44,11 @@ public class Topology {
         
     
     }
-
+    /**
+     * This method is used to print a topology data.
+     */
     static void printJson(String id){
+    
 
         JSONObject top_json = topologies.get(id);
         System.out.println("\nid: "+ (String)top_json.get("id") +"\n");
@@ -43,8 +61,12 @@ public class Topology {
         }
 
     }
+   /**
+   * This method is used to query about which topologies are currently in the memory.
+   */
+  public void getTopologies() {
 
-    static void getTopologies() {
+     
 
         JSONObject top_json;
         JSONArray components;
@@ -63,7 +85,13 @@ public class Topology {
 
     }
 
-    static void getDevices(String id){
+    /**
+   * This method is used to query about which devices are in a given topology.
+   * @param id This is the id of the desired topology
+   */
+
+  public void getDevices(String id){
+        
         try{
             printJson(id);
         }
@@ -72,8 +100,12 @@ public class Topology {
         }
 
     }
+    /**
+   * This method is used to Delete a given topology from memory.
+   * @param id This is the id of the desired topology
+   */
 
-    static void deleteTop(String id){
+  public void deleteTop(String id){
         try{
             topologies.remove(id);
             System.out.println("\nThe topology has been deleted successfully\n");
@@ -83,7 +115,12 @@ public class Topology {
         }
 
     }
-    static void writeTop(String id){
+
+    /**
+   * This method is used to write a given topology from memory.
+   * @param id This is the id of the desired topology
+   */
+  public void writeTop(String id){
         try{
             JSONObject top_json = topologies.get(id);
             Scanner myObj = new Scanner(System.in);  // Create a Scanner object
@@ -99,8 +136,12 @@ public class Topology {
         }
         
     }
-
-    static  void getDevicesWithNetlistNode(String id, String netlistNodeID){
+    /**
+   * This method is used to query about which devices are connected to a given netlist node in a given topology.
+   * @param id This is the id of the desired topology
+   * @param netlistNodeID This is the id of the desired net list node
+   */
+  public  void getDevicesWithNetlistNode(String id, String netlistNodeID){
 
        try{
            
@@ -127,30 +168,38 @@ public class Topology {
           
 
     }
-
+    /**
+   * This method is used to return the map that contain all topologies.
+   * @param topologies This is the HashMap that contain all save topologies
+   * @return topologies.
+   */
     public HashMap getHashMap(){
         return topologies;
     }
-    
+    /**
+   * This method is used to determine which operation will be performed.
+   * @param func This is the name of the desired operation.
+   */
     public void excute(String name_id, String func, String netlistNodeID){
+        Topology obj = new Topology();
         switch (func) {
             case "read":
-            readTop(name_id);
+            obj.readTop(name_id);
               break;
             case "write":
-              writeTop(name_id);
+            obj.writeTop(name_id);
               break;
             case "delete":
-              deleteTop(name_id);
+            obj.deleteTop(name_id);
               break;
             case "getTopologies":
-              getTopologies();
+            obj.getTopologies();
               break;
             case "getDevices":
-              getDevices(name_id);
+            obj.getDevices(name_id);
               break;
             case "getDevicesWithNetlistNode":
-              getDevicesWithNetlistNode(name_id ,netlistNodeID);
+            obj.getDevicesWithNetlistNode(name_id ,netlistNodeID);
         }
              
     }
