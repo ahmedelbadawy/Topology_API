@@ -200,6 +200,9 @@ public class Topology {
               break;
             case "getDevicesWithNetlistNode":
             obj.getDevicesWithNetlistNode(name_id ,netlistNodeID);
+
+            default:
+            System.out.println("\nInvalid syntax\n");
         }
              
     }
