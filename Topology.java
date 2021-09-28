@@ -126,8 +126,12 @@ public class Topology {
     
           
 
-
     }
+
+    public HashMap getHashMap(){
+        return topologies;
+    }
+    
     public void excute(String name_id, String func, String netlistNodeID){
         switch (func) {
             case "read":
