@@ -8,7 +8,6 @@
 
 - main project [java](https://www.java.com/en/)
 - Unit testing: [Junit](https://junit.org/junit5/).
-- Function documentation: [typedoc](https://typedoc.org).
 
 ## Getting Started
 
